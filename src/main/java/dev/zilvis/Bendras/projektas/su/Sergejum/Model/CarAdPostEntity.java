@@ -26,6 +26,10 @@ public class CarAdPostEntity {
     @Column(name = "Model", nullable = false)
     private Make make;
 
+    // Savininko email (Unikalus)
+    @Column
+    private Long user_entity_email;
+
     // TODO Perdaryti i enum ?
     @Column(name = "model", nullable = false)
     private String model;
