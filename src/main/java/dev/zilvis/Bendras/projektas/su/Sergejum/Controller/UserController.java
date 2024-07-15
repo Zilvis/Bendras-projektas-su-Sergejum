@@ -4,14 +4,11 @@ import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
 import dev.zilvis.Bendras.projektas.su.Sergejum.webtoken.JwtService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +32,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
 
+    // TODO User not found sutvarkyti
+    // TODO Jeigu iseina po update jwt token padaryti negaliojanti (Sena)
+    // TODO Padaryti patikra jei email yra egzistuojantis kad neleistu jo keisti !
+    // Updeitina tik jei jwt key yra galiojantis ir tik jei username (Email yra atitinkamas)
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserEntity updatedUser) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,8 +54,6 @@ public class UserController {
 
         // Atnaujinti vartotojo duomenis
         myUserDetailService.updateUserDetailsById(updatedUser,id);
-
-
         return ResponseEntity.ok("User updated successfully");
     }
 }
