@@ -1,7 +1,7 @@
 package dev.zilvis.Bendras.projektas.su.Sergejum.Service;
 
-import dev.zilvis.Bendras.projektas.su.Sergejum.Entity.UserEntity;
-import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.UserRepository;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class MyUserDetailService implements UserDetailsService {
 
     @Autowired
-    private UserRepository repository;
+    private MyUserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

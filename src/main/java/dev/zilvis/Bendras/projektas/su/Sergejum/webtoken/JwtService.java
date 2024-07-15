@@ -1,4 +1,4 @@
-package dev.zilvis.Bendras.projektas.su.Sergejum.Security.WebToken;
+package dev.zilvis.Bendras.projektas.su.Sergejum.webtoken;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class JwtService {
 
-    private static final String SECRET = "B538B33EE6E8B80D09871A30779E4E792DD7876B0F2A81C04FAC4BB2C1EF73E95014E33E7C47CA8D66F79F4EDC85FDD705257E4F9C095BB68FFAFC1D73E50439";
-    private static final long VALIDITY = TimeUnit.MINUTES.toMillis(30);
+    private static final String SECRET = "C86A524D347D5FC285872B0EA51AF172073779A425284FBF336BC5988EB8CAE27B52020EBD236C0051BDED5D9EAFAEC7DFB31BD4313809C689E350825AC8221D";
+    private static final long VALIDITY = TimeUnit.MINUTES.toMillis(120);
 
     public String generateToken(UserDetails userDetails) {
         Map<String, String> claims = new HashMap<>();
-        claims.put("iss", "Super duper svetaine");
+        claims.put("iss", "Fancy auto sell buy portal! :)");
         return Jwts.builder()
                 .claims(claims)
                 .subject(userDetails.getUsername())

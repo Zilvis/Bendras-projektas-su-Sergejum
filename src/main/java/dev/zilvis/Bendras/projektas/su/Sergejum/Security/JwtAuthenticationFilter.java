@@ -1,7 +1,7 @@
-package dev.zilvis.Bendras.projektas.su.Sergejum.Security.Configuration;
+package dev.zilvis.Bendras.projektas.su.Sergejum.Security;
 
 import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
-import dev.zilvis.Bendras.projektas.su.Sergejum.Security.WebToken.JwtService;
+import dev.zilvis.Bendras.projektas.su.Sergejum.webtoken.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package dev.zilvis.Bendras.projektas.su.Sergejum.Security.Configuration;
+package dev.zilvis.Bendras.projektas.su.Sergejum.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

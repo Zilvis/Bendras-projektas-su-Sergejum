@@ -1,5 +1,7 @@
-package dev.zilvis.Bendras.projektas.su.Sergejum.Security.Configuration;
+package dev.zilvis.Bendras.projektas.su.Sergejum.Configuration;
 
+//import com.genuinecoder.jwt.model.MyUserDetailService;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Security.JwtAuthenticationFilter;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +34,7 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/", "/register/**", "/authenticate", "/api/posts/getall/**").permitAll();
+                    registry.requestMatchers("/", "/register/**", "/login").permitAll();
                     registry.requestMatchers("/admin/**").hasRole("ADMIN");
                     registry.requestMatchers("/user/**").hasRole("USER");
                     registry.anyRequest().authenticated();
