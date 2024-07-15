@@ -36,7 +36,8 @@ public class UserAuthenticationController {
         return myUserRepository.save(user);
     }
 
-    @PostMapping("/login")
+    // LOGIN kontroleris grazina JwtToken kuris galioja 120 min
+    @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody LoginForm loginForm) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginForm.username(), loginForm.password()
