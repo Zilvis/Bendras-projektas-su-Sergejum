@@ -4,11 +4,10 @@ import dev.zilvis.Bendras.projektas.su.Sergejum.Enums.FuleType;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Enums.Make;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 
-@RestController
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,27 +22,27 @@ public class CarAdPostEntity {
 
     // TODO Galima palikti string
     @Enumerated(EnumType.STRING)
-    @Column(name = "Model", nullable = false)
+    @Column(name = "make", nullable = false)
     private Make make;
 
     // Savininko email (Unikalus)
-    @Column
-    private Long user_entity_email;
+    @Column(name = "user_entity_email", nullable = true)
+    private Long userEntityEmail;
 
     // TODO Perdaryti i enum ?
-    @Column(name = "model", nullable = false)
+    @Column(name = "model", nullable = true)
     private String model;
 
-    @Column(name = "year", nullable = false)
+    @Column(name = "year", nullable = true)
     private LocalDate year;
 
-    @Column(name = "millage", nullable = false)
+    @Column(name = "millage", nullable = true)
     private int millage;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = true)
     private float price;
 
-    @Column(name = "fuel_type", nullable = false)
+    @Column(name = "fuel_type", nullable = true)
     private FuleType fuleType;
 
     @Column(name = "description", length = 500, nullable = true)

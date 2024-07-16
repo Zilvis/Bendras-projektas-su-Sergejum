@@ -24,6 +24,8 @@ public class CarAdController {
 
     @GetMapping("/all")
     public List<CarAdPostEntity> getAll(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) Long userEntityEmailid,
             @RequestParam(required = false) Enum<Make> make,
             @RequestParam(required = false) String model,
             @RequestParam(required = false) LocalDate year,
