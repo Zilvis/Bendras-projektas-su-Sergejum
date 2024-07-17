@@ -49,7 +49,7 @@ public class CarAdController {
         return carAdPostService.getAll();
     }
     
-
+    // https://www.dailycodebuffer.com/spring-requestparam-annotation/
     // TODO Padaryti patikra del istrynimo
     // TODO Padaryti profilyje user skelbimu skaiciu ir istrynus skelbima pagald user nusiminusuotu
     
