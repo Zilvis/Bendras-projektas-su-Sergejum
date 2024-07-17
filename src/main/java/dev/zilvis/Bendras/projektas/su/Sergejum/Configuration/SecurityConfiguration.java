@@ -1,7 +1,7 @@
 package dev.zilvis.Bendras.projektas.su.Sergejum.Configuration;
 
 import dev.zilvis.Bendras.projektas.su.Sergejum.Security.JwtAuthenticationFilter;
-import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     @Autowired
-    private MyUserDetailService userDetailService;
+    private MyUserDetailServiceImpl userDetailService;
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -33,11 +33,12 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/", "/register/**", "/authenticate").permitAll();
-                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
-                    registry.requestMatchers("/user/**").hasRole("USER");
-                    registry.requestMatchers("/car/**", "car/all").permitAll(); // TODO
-                    registry.anyRequest().authenticated();
+//                    registry.requestMatchers("/", "/register/**", "/authenticate").permitAll();
+//                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
+//                    registry.requestMatchers("/user/**").hasRole("USER");
+//                    registry.requestMatchers("/car/**", "car/all","user/email/**").permitAll(); // TODO
+                    //registry.anyRequest().authenticated();
+                    registry.anyRequest().permitAll();
                 })
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

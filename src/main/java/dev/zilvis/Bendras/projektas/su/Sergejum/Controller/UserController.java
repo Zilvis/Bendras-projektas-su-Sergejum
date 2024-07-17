@@ -3,6 +3,7 @@ package dev.zilvis.Bendras.projektas.su.Sergejum.Controller;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailServiceImpl;
 import dev.zilvis.Bendras.projektas.su.Sergejum.webtoken.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
 
 @RestController
 @RequestMapping("/user")
@@ -30,6 +28,12 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/email/{email}")
+    public String getEmail(@PathVariable String email){
+        UserEntity s = userRepository.findByUsername(email).get();
+        return String.valueOf(s.getId());
+    }
 
 
     // TODO User not found sutvarkyti
