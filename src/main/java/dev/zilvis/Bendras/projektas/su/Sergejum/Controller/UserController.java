@@ -56,4 +56,6 @@ public class UserController {
         myUserDetailService.updateUserDetailsById(updatedUser,id);
         return ResponseEntity.ok("User updated successfully");
     }
+    // Busi tik admin interface prieinamas
+    // Delete mapping "/delete/{id}"
 }

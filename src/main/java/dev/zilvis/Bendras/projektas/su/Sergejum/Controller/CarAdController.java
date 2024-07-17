@@ -22,14 +22,6 @@ public class CarAdController {
         return carAdPostService.createNewAd(newCarAdPostEntity);
     }
 
-    //@GetMapping
-    //public ResponseEntity<?> getAllTasks(@RequestParam(value = "status", required = false) Integer status) {
-    //    if(status == null) {
-    //        return new ResponseEntity<>(this.taskResource.findAll(), HttpStatus.OK);
-    //    }
-    //    return new ResponseEntity<>(this.tacheResource.getTachesByEtat(status), HttpStatus.OK);
-    //}
-
     @GetMapping("/all")
     public List<CarAdPostEntity> getAll(
             @RequestParam(required = false) Long id,
@@ -37,8 +29,8 @@ public class CarAdController {
             @RequestParam(required = false) Enum<Make> make,
             @RequestParam(required = false) String model,
             @RequestParam(required = false) LocalDate year,
-            @RequestParam(required = false) Integer millage,
-            @RequestParam(required = false) Float price,
+            @RequestParam(required = false) int millage,
+            @RequestParam(required = false) float price,
             @RequestParam(required = false) Enum<FuleType> fuelType
             ){
         return carAdPostService.getAll();
