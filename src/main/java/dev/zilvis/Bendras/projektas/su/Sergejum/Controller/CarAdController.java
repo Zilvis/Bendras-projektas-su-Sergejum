@@ -17,12 +17,25 @@ public class CarAdController {
     @Autowired
     CarAdPostService carAdPostService;
 
+    // TODO Uzsetinti vartotojo id skelbimu duomenu bazeje!
+    
     @PostMapping("/new")
     public CarAdPostEntity createNew (@RequestBody CarAdPostEntity newCarAdPostEntity){
         return carAdPostService.createNewAd(newCarAdPostEntity);
     }
 
-    @GetMapping("/all")
+    // @RequestMapping(value = {""}, method = RequestMethod.GET)
+    // public String search(
+    //  @RequestParam Map<String,String> allRequestParams, ModelMap model) {
+    //    return "viewName";
+    // }
+
+    // public String updateFoos(@RequestParam Map<String,String> allParams) {
+    // return "Parameters are " + allParams.entrySet();}
+
+    // Grazins visus skelbimus ir per parametrus
+    // TODO !
+    @GetMapping("/all") // Galbut pakeisti i /ads
     public List<CarAdPostEntity> getAll(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) Long userEntityEmailid,
@@ -35,8 +48,11 @@ public class CarAdController {
             ){
         return carAdPostService.getAll();
     }
+    
 
     // TODO Padaryti patikra del istrynimo
+    // TODO Padaryti profilyje user skelbimu skaiciu ir istrynus skelbima pagald user nusiminusuotu
+    
     @DeleteMapping("/delete/{id}")
     public String deleteById(@PathVariable("id") Long id){
         carAdPostService.deleteById(id);
