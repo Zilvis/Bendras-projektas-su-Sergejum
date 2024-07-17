@@ -37,10 +37,10 @@ public class CarAdPostEntity {
     private LocalDate year;
 
     @Column(name = "millage", nullable = true)
-    private int millage;
+    private Integer millage;
 
     @Column(name = "price", nullable = true)
-    private float price;
+    private Float price;
 
     @Column(name = "fuel_type", nullable = true)
     private FuleType fuleType;
@@ -49,6 +49,6 @@ public class CarAdPostEntity {
     private String description;
 
     @Lob
-    private byte[] image;
+    private Byte[] image;
 
 }
