@@ -1,6 +1,6 @@
 package dev.zilvis.Bendras.projektas.su.Sergejum.Security;
 
-import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailServiceImpl;
 import dev.zilvis.Bendras.projektas.su.Sergejum.webtoken.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtService;
     @Autowired
-    private MyUserDetailService myUserDetailService;
+    private MyUserDetailServiceImpl myUserDetailService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

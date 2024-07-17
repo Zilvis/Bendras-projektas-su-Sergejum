@@ -2,7 +2,7 @@ package dev.zilvis.Bendras.projektas.su.Sergejum.Controller;
 
 import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
-import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailService;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Service.MyUserDetailServiceImpl;
 import dev.zilvis.Bendras.projektas.su.Sergejum.webtoken.JwtService;
 import dev.zilvis.Bendras.projektas.su.Sergejum.webtoken.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class UserAuthenticationController {
     @Autowired
     private JwtService jwtService;
     @Autowired
-    private MyUserDetailService myUserDetailService;
+    private MyUserDetailServiceImpl myUserDetailService;
     @Autowired
     private MyUserRepository myUserRepository;
     @Autowired

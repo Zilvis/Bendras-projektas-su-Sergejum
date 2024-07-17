@@ -1,0 +1,26 @@
+//String text = "digital";
+        //text.startsWith("dig"); // like "dig%"
+        //text.endsWith("tal"); // like "%tal"
+        //text.contains("gita"); // like "%gita%"
+
+        //.filter(car -> (make == null       || car.getMake().matches(".*"+make+".*")))
+
+
+        // /car/all?yearFrom=2000-06-01&yearTo=2023-01-03   reikia nurodyti metus menesi ir data bet ima tik metus ir pagal juos sortina
+        // /car/all?priceFrom=10&priceTo=30                 Rusiuoja pagal kaina nuo iki
+        // /car/all?maxMillage=5000                         Maksimali masinos rida
+
+        // Visi galimi parametrai:
+        // String - make
+        // String - model
+        // LocalDate yearFrom
+        // LocalDate yearTo
+        // Integer maxMillage
+        // Float priceFrom
+        // Float priceTo
+        // String fuelType
+        // Visus parametrus galima naudoti. Jei nieko nenaudoji gauni visa sarasa
+
+
+
+        // http://localhost:8080/car/models - grazina duomenu bazeje esancius visus modelius ir ju skaiciu
