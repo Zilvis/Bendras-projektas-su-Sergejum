@@ -12,7 +12,7 @@
 > - [ ] <b>GET MAPPING</b> <code>/car/all?yearFrom=2000-06-01&yearTo=2023-01-03</code>
 > - [ ] <b>GET MAPPING</b> <code>/car/models</code> :arrow_right: Grazina modelius ir skelbimu skaiciu
 > - [ ] <b>GET MAPPING</b> <code>/user/email/{email}s</code> :arrow_right: Grazina kliento id pagal email
-> - [ ] <b>PUT MAPPING</b> <code>/user/update/{id}s</code> :arrow_right: atnaujina vartotojo duomenis || @RequestBody UserEntity
+> - [ ] <b>PUT MAPPING</b> <code>/user/update/{id}</code> :arrow_right: atnaujina vartotojo duomenis || @RequestBody UserEntity
 > - [ ] ---
 > - [ ] <b>POST MAPPING</b> <code>/car/new</code> :arrow_right: @RequestBody <code>userEntityEmail, model, year, millage, price, fuelType, description, byte[] image</code>
 
