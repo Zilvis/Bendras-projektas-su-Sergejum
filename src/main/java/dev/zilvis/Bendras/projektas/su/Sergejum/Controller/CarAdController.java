@@ -1,14 +1,18 @@
 package dev.zilvis.Bendras.projektas.su.Sergejum.Controller;
 
 import dev.zilvis.Bendras.projektas.su.Sergejum.Model.CarAdPostEntity;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Service.CarAdPostService;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,41 +24,26 @@ public class CarAdController {
     @Autowired
     CarAdPostService carAdPostService;
 
+    @Autowired
+    private MyUserRepository userRepository;
+
+//    @PostMapping("/new")
+//    public CarAdPostEntity createNew (@RequestBody CarAdPostEntity newCarAdPostEntity){
+//        return carAdPostService.createNewAd(newCarAdPostEntity);
+//    }
+
     @PostMapping("/new")
-    public CarAdPostEntity createNew (@RequestBody CarAdPostEntity newCarAdPostEntity){
-        return carAdPostService.createNewAd(newCarAdPostEntity);
+    public ResponseEntity<?> newUser (@Nullable Authentication authentication, @RequestBody CarAdPostEntity newCarAdPostEntity) {
+        if (authentication == null){
+            return new ResponseEntity<>(false ,HttpStatus.NO_CONTENT);
+        }
+
+        return ResponseEntity.ok(carAdPostService.createNewAd(newCarAdPostEntity));
     }
 
-    @PostMapping("/raw")
-    public ResponseEntity<byte[]> receiveRawByteArray(@RequestBody byte[] byteArray) {
-        return new ResponseEntity<>(byteArray, HttpStatus.OK);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<?> filterCars(
-            @RequestParam(required = false) String make,
-            @RequestParam(required = false) String model,
-            @RequestParam(required = false) LocalDate yearFrom,
-            @RequestParam(required = false) LocalDate yearTo,
-            @RequestParam(required = false) Integer maxMillage,
-            @RequestParam(required = false) Float priceFrom,
-            @RequestParam(required = false) Float priceTo,
-            @RequestParam(required = false) String fuelType) {
-
-        List<CarAdPostEntity> cars = carAdPostService.getAll();
-
-        List<CarAdPostEntity> filteredCars = cars.stream()
-                .filter(car -> (make == null        || car.getMake().equalsIgnoreCase(make)))
-                .filter(car -> (model == null       || car.getModel().equalsIgnoreCase(model)))
-                .filter(car -> (yearFrom == null    || car.getYear().getYear() >= yearFrom.getYear()))
-                .filter(car -> (yearTo == null      || car.getYear().getYear() >= yearTo.getYear()))
-                .filter(car -> (maxMillage == null  || car.getMillage() <= maxMillage))
-                .filter(car -> (fuelType == null    || car.getFuelType().equalsIgnoreCase(fuelType)))
-                .filter(car -> (priceFrom == null   || car.getPrice() >= priceFrom))
-                .filter(car -> (priceTo == null     || car.getPrice() <= priceTo))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(filteredCars);
+    @GetMapping
+    public ResponseEntity<?> getById(@RequestParam Long id){
+        return ResponseEntity.ok(carAdPostService.getOneById(id));
     }
 
     @GetMapping("/models")
@@ -67,23 +56,26 @@ public class CarAdController {
         return ResponseEntity.ok(modelAndModelCount);
     }
 
-    //TODO Garzinti list unikaliu model
+    // TODO padaryti su marke ir modeliu min max reiksmes
+    @GetMapping("/price")
+    public ResponseEntity<?> getPrice(
+            @RequestParam boolean minOrMax){
+        float price;
+        if (minOrMax){
+            price = carAdPostService.getPrice(true);
+        } else {
+            price = carAdPostService.getPrice(false);
+        }
+        return ResponseEntity.ok(price);
+    }
 
-    //TODO List unikaliu visus pagal model esamas make
-
-    //TODO pagrazint isflitruotu auto min max price
-
-
-
-    // TODO Padaryti patikra del istrynimo
     @DeleteMapping("/delete/{id}")
-    public String deleteById(@PathVariable("id") Long id){
-        carAdPostService.deleteById(id);
-        return "OK";
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+        return carAdPostService.deleteById(id);
     }
 
     @PutMapping("/update/{id}")
-    public CarAdPostEntity updateById (@RequestBody CarAdPostEntity newCarAdPostEntity, @PathVariable("id") Long id){
+    public ResponseEntity<?> updateById (@RequestBody CarAdPostEntity newCarAdPostEntity, @PathVariable("id") Long id){
         return carAdPostService.updateById(newCarAdPostEntity, id);
     }
 }

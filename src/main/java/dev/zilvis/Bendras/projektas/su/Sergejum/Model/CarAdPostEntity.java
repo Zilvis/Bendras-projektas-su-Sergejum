@@ -25,7 +25,10 @@ public class CarAdPostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "make", nullable = false)
+    @Column(length = 50)
+    private String title;
+
+    @Column(name = "make", nullable = true)
     private String make;
 
     // Savininko email (Unikalus)
@@ -39,7 +42,7 @@ public class CarAdPostEntity {
     private LocalDate year;
 
     @Column(name = "millage", nullable = true)
-    private Integer millage;
+    private Long millage;
 
     @Column(name = "price", nullable = true)
     private Float price;
@@ -47,11 +50,11 @@ public class CarAdPostEntity {
     @Column(name = "fuel_type", nullable = true)
     private String fuelType;
 
-    @Column(name = "description", length = 500, nullable = true)
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "image", columnDefinition="LONGBLOB")
     @Lob
-    @Column(name = "image", columnDefinition="BLOB")
     private byte[] image;
 
 }

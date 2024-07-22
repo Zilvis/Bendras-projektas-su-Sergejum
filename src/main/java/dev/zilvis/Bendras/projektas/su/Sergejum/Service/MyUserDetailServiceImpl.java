@@ -3,6 +3,8 @@ package dev.zilvis.Bendras.projektas.su.Sergejum.Service;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -38,6 +41,20 @@ public class MyUserDetailServiceImpl implements UserDetailsService, MyUserDetail
     }
 
     @Override
+    public Boolean isAdmin(String username) throws UsernameNotFoundException {
+        String s = Arrays.toString(getRoles(myUserRepository.findByUsername(username).get()));
+        if (s.contains("[ADMIN]") || s.contains("[ADMIN, USER]")){
+            return true;
+        }
+            return false;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        myUserRepository.deleteById(id);
+    }
+
+    @Override
     public String[] getRoles(UserEntity user) {
         if (user.getRole() == null) {
             return new String[]{"USER"};
@@ -62,5 +79,12 @@ public class MyUserDetailServiceImpl implements UserDetailsService, MyUserDetail
             newUserEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         return myUserRepository.save(newUserEntity);
+    }
+
+    @Override
+    public Long getUserId(Authentication authentication){
+        String currentUsername = authentication.getName();
+        UserEntity user = myUserRepository.findByUsername(currentUsername).get();
+        return user.getId();
     }
 }
