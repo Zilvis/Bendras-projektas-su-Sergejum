@@ -68,26 +68,27 @@ public class UserController {
 
     // TODO Sutvarkyti
     @GetMapping("/autoLogin")
-    public ResponseEntity<?> autoLogin(HttpServletRequest request) {
+    public ResponseEntity<?> autoLogin(@RequestHeader("CookieJwt") String CookieJwt) {
         try {
+            Cookie cookiex = new Cookie("jwtToken",CookieJwt);
             // Get all cookies from the request
-            Cookie[] cookies = request.getCookies();
+            Cookie[] cookies = {cookiex};
+
             if (cookies != null) {
-                // TODO
                 // Find the specific cookie (e.g., "jwtToken")
                 Optional<Cookie> jwtTokenCookie = Arrays.stream(cookies)
-                       // .filter(cookie -> "jwtToken".equals(cookie.getName()))
+                        .filter(cookie -> "jwtToken".equals(cookie.getName()))
                         .findFirst();
 
                 if (jwtTokenCookie.isPresent() && jwtService.isTokenValid(jwtTokenCookie.get().getValue())) {
                     String jwtToken = jwtTokenCookie.get().getValue();
-                    return ResponseEntity.ok(jwtToken);
+                    return new ResponseEntity<>(true, HttpStatus.OK);
                 }
             }
             return new ResponseEntity<>(false, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             // Optionally log the exception
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(false,HttpStatus.UNAUTHORIZED);
         }
     }
 

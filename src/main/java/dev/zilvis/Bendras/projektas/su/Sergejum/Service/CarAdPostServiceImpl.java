@@ -57,7 +57,7 @@ public class CarAdPostServiceImpl implements CarAdPostService{
         Optional<CarAdPostEntity> optionalCarAdPostEntity = carAdPostRepository.findById(id);
         Long userId = myUserDetailService.getUserId(authentication);
         CarAdPostEntity existingCarAdPostEntity = optionalCarAdPostEntity.get();
-        Long carUserId = existingCarAdPostEntity.getId();
+        Long carUserId = existingCarAdPostEntity.getUserEntityEmail();
 
         if (userId.equals(carUserId)){
             carAdPostRepository.deleteById(id);
@@ -121,15 +121,12 @@ public class CarAdPostServiceImpl implements CarAdPostService{
     }
 
     @Override
-    public Map<String, Long> getModelsAndCount() {
+    public List<String> getModelsAndCount() {
 
-        List<String> results = carAdPostRepository.findMakeCount();
-        Map<String, Long> makeCount = new HashMap<>();
+        Set<String>results = carAdPostRepository.findMakeCount();
+        List<String> uResults = new ArrayList<>(results);
 
-        for (String model : results) {
-            makeCount.put(model, makeCount.getOrDefault(model, 0L) + 1);
-        }
-        return makeCount;
+        return uResults;
     }
 
     @Override

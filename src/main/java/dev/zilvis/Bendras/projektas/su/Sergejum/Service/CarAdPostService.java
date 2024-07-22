@@ -14,7 +14,7 @@ public interface CarAdPostService {
     List<CarAdPostEntity> getAll();
     ResponseEntity deleteById(Long id);
     ResponseEntity<?>  updateById(CarAdPostEntity newCarAdPostEntity, Long id);
-    Map<String, Long> getModelsAndCount();
+    List<String> getModelsAndCount();
     Float getPrice(Boolean minOrMax);
 
     Object getOneById(Long id);

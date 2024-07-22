@@ -1,7 +1,9 @@
 package dev.zilvis.Bendras.projektas.su.Sergejum.Controller;
 
+import dev.zilvis.Bendras.projektas.su.Sergejum.DTO.Filter;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Model.CarAdPostEntity;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Model.UserEntity;
+import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.CarAdPostRepository;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Repository.MyUserRepository;
 import dev.zilvis.Bendras.projektas.su.Sergejum.Service.CarAdPostService;
 import jakarta.annotation.Nullable;
@@ -13,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,11 +29,8 @@ public class CarAdController {
 
     @Autowired
     private MyUserRepository userRepository;
-
-//    @PostMapping("/new")
-//    public CarAdPostEntity createNew (@RequestBody CarAdPostEntity newCarAdPostEntity){
-//        return carAdPostService.createNewAd(newCarAdPostEntity);
-//    }
+    @Autowired
+    private CarAdPostRepository carAdPostRepository;
 
     @PostMapping("/new")
     public ResponseEntity<?> newUser (@Nullable Authentication authentication, @RequestBody CarAdPostEntity newCarAdPostEntity) {
@@ -46,9 +46,15 @@ public class CarAdController {
         return ResponseEntity.ok(carAdPostService.getOneById(id));
     }
 
-    @GetMapping("/models")
-    public ResponseEntity<?> getAllExistingModels (){
-        Map<String, Long> modelAndModelCount = carAdPostService.getModelsAndCount();
+    @PostMapping("/models")
+    public ResponseEntity<List<String>> getModelsByMake(@RequestBody Filter filter) {
+            List<String> x = carAdPostRepository.findByMakeByModel(filter.getMake());
+        return new ResponseEntity<>(x, HttpStatus.OK);
+    }
+
+    @GetMapping("/make")
+    public ResponseEntity<?> getAllMakes (){
+        List<String> modelAndModelCount = carAdPostService.getModelsAndCount();
 
         if (modelAndModelCount.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No existing data in database!");
